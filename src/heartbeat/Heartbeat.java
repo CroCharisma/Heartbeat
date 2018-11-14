@@ -40,15 +40,21 @@ public class Heartbeat {
         for( File ahh : list ){
             String messId = "";
             Scanner f = new Scanner( ahh );
-            for( String line = ""; !line.equals( "" ); line = f.nextLine() ){
-                if( line.contains( "Message-ID") ){
-                    String[] fuckkevinlol = line.split( "\\s+" );
-                    messId = fuckkevinlol[1];
+            //sets messId
+            while( f.hasNext() ){
+                String line = f.nextLine();
+                if( line.equals( "" ) ){
+                    break;
                 }
-                if( line.contains( "From" ) ){
-                    
-                }
+                if( line.contains( "MessageID" ) ){
+                    String[] substring = line.split( "\\s+" );
+                    messId = substring[1];
+                }                
             }
+            
+            Scanner nova = new Scanner( ahh );
+            //OK FUCKING REAL LOGIC NOW ONE SEC
+            
         }   
         
         //out prints the list of messages that need to be checked
