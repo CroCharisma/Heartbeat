@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heartbeat;
 
 import java.util.*;
@@ -20,7 +15,7 @@ public class Heartbeat {
         File folder = new File( "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500\\emails" );
         File[] list = folder.listFiles();
         List<String> values = new ArrayList();
-        values.add( "test" );
+//        values.add( "donezo" );
         //imports settings
         Scanner settings = new Scanner( new File( "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500\\settings.txt" ));
         
@@ -38,7 +33,7 @@ public class Heartbeat {
         
         //actual logic time
         for( File ahh : list ){
-            String messId = "";
+            String messId = "notastringdonttrip";
             Scanner f = new Scanner( ahh );
             //sets messId
             while( f.hasNext() ){
@@ -46,15 +41,30 @@ public class Heartbeat {
                 if( line.equals( "" ) ){
                     break;
                 }
-                if( line.contains( "MessageID" ) ){
+                if( line.contains( "Message-ID" ) ){
                     String[] substring = line.split( "\\s+" );
                     messId = substring[1];
                 }                
             }
-            
+            int orka = 0;
             Scanner nova = new Scanner( ahh );
             //OK FUCKING REAL LOGIC NOW ONE SEC
-            
+            while( nova.hasNextLine() ){
+                String line = nova.nextLine();
+                if( line.contains("From:") ){
+                    String[] asjd = line.split(" ");
+                    if( line.contains( name ) ){
+                        if( ! containsID( messId ) ){
+                            if( containsWords( ahh ) ){
+                                System.out.println("whyisitonlytwo");
+                            }
+                        }
+                    }
+//                    System.out.println( line );
+//                    System.out.println( name );
+//                    System.out.println( line.contains( name ));
+                }               
+            }
         }   
         
         //out prints the list of messages that need to be checked
@@ -79,8 +89,30 @@ public class Heartbeat {
         
     }
     
-//    public static boolean containsWords(  ){
-//        
-//    }
+    public static boolean containsWords( File winRar ) throws Exception{
+        
+        Scanner f = new Scanner( winRar );
+        
+        
+        while( ! f.nextLine().equals( "" ) ){
+            //skip lul
+        }
+        
+        while( f.hasNext() ){
+            
+            String ouch = f.next();
+            if( ouch.equals("EYES") && f.hasNext() ){
+                if( f.next().equals( "ONLY") ){
+                    return true;
+                }
+            }
+            else if( ouch.equals("SECRET" ) || ouch.equals( "CLASSIFIED" ) ){
+                return true;
+            }
+            
+        }
+        
+        return false;
+    }
     
 }
