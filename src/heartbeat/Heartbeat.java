@@ -23,11 +23,11 @@ public class Heartbeat {
             String[] ymxtb = settings.nextLine().split("\\s+");
             if( ymxtb[1].equals( "Name:" ) ){
                 name = ymxtb[2] + " " + ymxtb[3];
-                //System.out.println( name );
+                System.out.println( name );
             }
             else if( ymxtb[1].equals( "Email:") ){
                 email = ymxtb[2];
-                //System.out.println( email );
+                System.out.println( email );
             }
         }
         
@@ -44,6 +44,7 @@ public class Heartbeat {
                 if( line.contains( "Message-ID" ) ){
                     String[] substring = line.split( "\\s+" );
                     messId = substring[1];
+//                    System.out.println(messId);
                 }                
             }
             int orka = 0;
@@ -51,14 +52,16 @@ public class Heartbeat {
             //OK FUCKING REAL LOGIC NOW ONE SEC
             while( nova.hasNextLine() ){
                 String line = nova.nextLine();
-                if( line.contains("From:") ){
+                if( line.contains("From:" ) || line.contains( "To:") ){
                     String[] asjd = line.split(" ");
                     if( line.contains( name ) ){
                         if( ! containsID( messId ) ){
                             if( containsWords( ahh ) ){
-                                System.out.println("whyisitonlytwo");
+//                                System.out.println( ahh.toString() );
+                                values.add( ahh.toString() );
                             }
                         }
+//                        System.out.println( ahh.toString() );
                     }
 //                    System.out.println( line );
 //                    System.out.println( name );
@@ -68,6 +71,7 @@ public class Heartbeat {
         }   
         
         //out prints the list of messages that need to be checked
+        System.out.println("");
         for( int i = 0; i < values.size(); i++ ){
             System.out.println( values.get( i ) );
         }
@@ -93,6 +97,7 @@ public class Heartbeat {
         
         Scanner f = new Scanner( winRar );
         
+        String bin = "";
         
         while( ! f.nextLine().equals( "" ) ){
             //skip lul
@@ -100,17 +105,14 @@ public class Heartbeat {
         
         while( f.hasNext() ){
             
-            String ouch = f.next();
-            if( ouch.equals("EYES") && f.hasNext() ){
-                if( f.next().equals( "ONLY") ){
-                    return true;
-                }
-            }
-            else if( ouch.equals("SECRET" ) || ouch.equals( "CLASSIFIED" ) ){
-                return true;
-            }
+            bin += f.next() + " ";
             
         }
+        
+        if( bin.contains( "CLASSIFIED" ) || bin.contains( "SECRET") || bin.contains( "EYES ONLY" ) ){
+            return true;
+        }
+        
         
         return false;
     }
