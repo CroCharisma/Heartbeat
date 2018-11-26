@@ -5,6 +5,8 @@ import java.io.*;
 
 public class Heartbeat {
 
+    //put the folder path here
+    private static String folderLoc = "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500";
     
     public static void main(String[] args) throws Exception {
         
@@ -12,22 +14,22 @@ public class Heartbeat {
         String email = "";
         
         //import folder containing emails to be checked
-        File folder = new File( "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500\\emails" );
+        File folder = new File( folderLoc + "\\emails" );
         File[] list = folder.listFiles();
         List<String> values = new ArrayList();
 //        values.add( "donezo" );
         //imports settings
-        Scanner settings = new Scanner( new File( "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500\\settings.txt" ));
+        Scanner settings = new Scanner( new File( folderLoc + "\\settings.txt" ));
         
         while( settings.hasNextLine() ){
             String[] ymxtb = settings.nextLine().split("\\s+");
             if( ymxtb[1].equals( "Name:" ) ){
                 name = ymxtb[2] + " " + ymxtb[3];
-                System.out.println( name );
+//                System.out.println( name );
             }
             else if( ymxtb[1].equals( "Email:") ){
                 email = ymxtb[2];
-                System.out.println( email );
+//                System.out.println( email );
             }
         }
         
@@ -58,7 +60,7 @@ public class Heartbeat {
                         if( ! containsID( messId ) ){
                             if( containsWords( ahh ) ){
 //                                System.out.println( ahh.toString() );
-                                values.add( ahh.toString() );
+                                values.add( ahh.toString().substring( ahh.toString().lastIndexOf( "\\" )+1 , ahh.toString().lastIndexOf( "." ) ) );
                             }
                         }
 //                        System.out.println( ahh.toString() );
@@ -71,7 +73,7 @@ public class Heartbeat {
         }   
         
         //out prints the list of messages that need to be checked
-        System.out.println("");
+        Collections.sort( values );
         for( int i = 0; i < values.size(); i++ ){
             System.out.println( values.get( i ) );
         }
@@ -79,7 +81,7 @@ public class Heartbeat {
     
     public static boolean containsID( String ID ) throws Exception{
         //import previous checked emails
-        Scanner f = new Scanner( new File( "C:\\Users\\k1330132\\Desktop\\NetBeansProjects\\Heartbeat\\src\\heartbeat\\500\\scanned_emails.txt" ));
+        Scanner f = new Scanner( new File( folderLoc + "\\scanned_emails.txt" ));
         
         while( f.hasNext() ){
             
